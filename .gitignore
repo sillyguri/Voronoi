@@ -1,0 +1,39 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+
+# LaTeX artifacts (if you compile locally)
+*.aux
+*.log
+*.out
+*.toc
+*.pdf
+*.synctex.gz
+
+# IDE settings
+.vscode/
+.idea/
+
+# Data and OS
+.DS_Store
+Thumbs.db
+*.local
+
+# own local testing
+
+# testing.py
+*.png
+
+# Virtual Environment files
+Voronoi/
+venv/
+ENV/
+
+# Python build and distribution metadata
+*.egg-info/
+.eggs/
+build/
+dist/

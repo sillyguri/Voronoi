@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "voronoi-app"
+version = "0.1.0"
+description = "Voronoi Diagram Analysis Tool"
+dependencies = [
+    "numpy",       # Essential for coordinate math and Shoelace formula
+    "scipy",       # Useful for underlying spatial algorithms
+    "streamlit",   # For the interactive web interface and grid
+    "plotly",      # Excellent for the orthographic sphere projection
+    "matplotlib",  # Standard for 2D Voronoi plotting
+]
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+run-voronoi = "ui.main:main"
