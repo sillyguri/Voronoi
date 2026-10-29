@@ -39,7 +39,7 @@ Follow these steps to set up the project locally on your machine:
 
 Open your terminal or command prompt and run:
 ```bash
-git clone https://github.com
+git clone https://github.mit.edu/arnavmg/Voronoi-ClosestPoint-Generator your-repo-name
 cd your-repo-name
 ```
 

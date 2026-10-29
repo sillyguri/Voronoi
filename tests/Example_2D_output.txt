@@ -1,0 +1,2 @@
+Query point Q1 is closest to site A
+Query point Q2 is closest to site A

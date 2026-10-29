@@ -1,11 +1,30 @@
 import sys
 import os
-sys.path.insert(0, os.path.dirname(__file__))                        # src/ui/ — for show_3D
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))    # src/    — for core.*
+
+#sys.path.insert(0, os.path.dirname(__file__))                        # src/ui/ — for show_3D
+#sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))    # src/    — for core.*
 
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon, Rectangle
+
+# 1. Determine the true base directory (supports both dev and PyInstaller)
+if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+    # In the executable, everything is flattened into the root of _MEIPASS
+    base_dir = sys._MEIPASS
+else:
+    # In standard development mode
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 2. Safely inject paths into sys.path
+sys.path.insert(0, base_dir)  # Points to root in exe, or 'ui/' folder in dev
+
+if not getattr(sys, 'frozen', False):
+    # In development mode, core is one level up ('..') relative to 'ui/'
+    sys.path.insert(0, os.path.abspath(os.path.join(base_dir, '..')))
+else:
+    # In the exe, everything is unpacked in the same root, so no '..' is needed
+    pass
 
 from core.geometry_2d import Point2D
 from core.geometry_3d import Point3D
@@ -134,7 +153,9 @@ def draw_labeled_voronoi(setting: VoronoiSetting, query_results: dict):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python voronoi_user_input.py <input_file>", flush=True)
+        # sys.argv[0] automatically extracts the name of your final .exe file
+        exe_name = os.path.basename(sys.argv[0])
+        print(f"Usage: {exe_name} <input_file>", flush=True)
         sys.exit(1)
 
     input_path = sys.argv[1]

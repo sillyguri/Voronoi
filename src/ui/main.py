@@ -1,14 +1,25 @@
 import random
 import pandas as pd
 from pathlib import Path
+import os
+import sys
 
 from core.algorithms import VoronoiSetting
 from core.geometry_2d import Point2D
 from ui.show_2D import draw_voronoi_diagram
 
+def get_asset_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 def main() -> None:
-    df = pd.read_csv(Path(__file__).parent / "uscities.csv")
+    df = pd.read_csv(get_asset_path('uscities.csv'))
     df = df[(df['lat'] > 22) & (df['lat'] < 50) & (df['lng'] > -130) & (df['lng'] < -67)]
     df = df[df['population'] > 10000]
     IDList = list(df['city_ascii'])
